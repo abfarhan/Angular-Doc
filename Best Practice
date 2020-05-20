@@ -1,0 +1,220 @@
+
+
+1) Remove duplicate code
+
+	Duplicate mock, html, css.
+ 
+2) Always unsubscribe and avoid memory leak
+
+	use takeuntil while subscribing and unsubscribe in ngOnDestroy method.
+
+3) Always use public and private 
+
+	use public and private access modifiers in variables and methods.
+	
+4) Only Inject services in component constructor
+
+5) Always give type
+
+	Give type while declaring variables. And if the method returns something give the return type, if not give void.
+
+6) Lazy Loading	Your Modules
+
+	If your using a multiple-module architecture, it’s probably a good idea to lazy load your modules.
+	Only the feature module which is used to display the initial content to the user should be loaded synchronously.
+
+7) Unit Test
+
+8) Refactor the code
+
+	a) Remove the unwanted, commented code.
+	b) Minimize the code if possible.
+	c) Make it more readable.
+	
+9) Use clonedeep while mocking the data for unit test.
+
+10) Meaningful names for variables, methods and parameters.
+
+11) Don’t use nested subscriptions
+
+	Bad---
+	
+	this.returnsObservable1(...)
+	  .subscribe(
+		success => {
+		  this.returnsObservable2(...)
+			.subscribe(
+			  success => {
+				this.returnsObservable3(...)
+				  .subscribe(
+					success => {
+					   ...
+					},
+	
+	
+	Good---
+	
+	this.returnsObservable1(...)
+	  .pipe(
+		flatMap(success => this.returnObservable2(...),
+		flatMap(success => this.returnObservable3(...)
+	   )
+	   .subscribe(success => {...});
+	
+	
+	Bad---
+	
+	firstObservable$.pipe(
+	   take(1)
+	)
+	.subscribe(firstValue => {
+		secondObservable$.pipe(
+			take(1)
+		)
+		.subscribe(secondValue => {
+			console.log(`Combined values are: ${firstValue} & ${secondValue}`);
+		});
+	});
+
+
+	Good---
+	
+	firstObservable$.pipe(
+		withLatestFrom(secondObservable$),
+		first()
+	)
+	.subscribe(([firstValue, secondValue]) => {
+		console.log(`Combined values are: ${firstValue} & ${secondValue}`);
+	});
+	
+	
+12) Clean up imports with path aliases
+
+	Bad---
+	
+	import 'reusableComponent' from '../../../shared/components/reusable/reusable.component.ts';
+	
+	Good---
+	
+	import 'reusableComponent' from '@app/shared/components/reusable.component.ts';
+	
+	tsconfig.json
+	
+	{
+	  "compilerOptions": {
+		...
+		"baseUrl": "src",
+		"paths": {
+		  "@app:": ["@app/*"]
+		}
+	  }
+	}
+	
+13) Use searchable names
+
+	Bad---
+
+	setTimeout(blastOff, 86400000);
+	
+	Good---
+
+	const MILLISECONDS_IN_A_DAY = 86400000;
+
+	setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
+	
+14) trackBy
+
+	When using ngFor to loop over an array in templates, use it with a trackBy function which will return an unique identifier for each item.
+		
+	Before---
+
+	<li *ngFor="let item of items;">{{ item }}</li>
+	
+	After---
+	// in the template
+
+	<li *ngFor="let item of items; trackBy: trackByFn">{{ item }}</li>
+
+	// in the component
+
+	trackByFn(index, item) {    
+	   return item.id; // unique id corresponding to the item
+	}
+	
+15) Pipeable operators
+	
+	Use pipeable operators when using RxJs operators.
+	
+	Before---
+
+	iAmAnObservable
+		.map(value => value.item)
+		.take(1);
+	
+	After---
+
+	iAmAnObservable
+		.pipe(
+		   map(value => value.item),
+		   take(1)
+		 );
+
+16) Subscribe in template
+
+	Before---
+
+	<p>{{ textToDisplay }}</p>
+
+	//component
+	iAmAnObservable
+		.pipe(
+		   map(value => value.item),
+		   takeUntil(this._destroyed$)
+		 )
+		.subscribe(item => this.textToDisplay = item);
+		
+	After---
+
+	<p>{{ textToDisplay$ | async }}</p>
+
+	// component
+	this.textToDisplay$ = iAmAnObservable
+		.pipe(
+		   map(value => value.item)
+		 );
+
+17) Use appropriate operators
+
+	switchMap: when you want to ignore the previous emissions when there is a new emission
+
+	mergeMap: when you want to concurrently handle all the emissions
+
+	concatMap: when you want to handle the emissions one after the other as they are emitted
+
+	exhaustMap: when you want to cancel all the new emissions while processing a previous emisssion
+	
+18) Avoid logic in templates
+
+	Before---
+
+	<p *ngIf="role==='developer'"> Status: Developer </p>
+
+	// component
+	public ngOnInit (): void {
+		this.role = 'developer';
+	}
+	
+	After---
+
+	<p *ngIf="showDeveloperStatus"> Status: Developer </p>
+
+	// component
+	public ngOnInit (): void {
+		this.role = 'developer';
+		this.showDeveloperStatus = true;
+	}
+	
+	
+Refer below link for more:
+https://github.com/ryanmcdermott/clean-code-javascript
+	

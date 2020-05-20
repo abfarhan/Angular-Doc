@@ -1,0 +1,10 @@
+
+---Mock for BehaviorSubject
+export class MockClass {
+   public mockVariable = new BehaviorSubject<mockType>(mockFunction());
+}
+function mockFunction(): mockType {
+    // some action
+    return value;
+}
+
