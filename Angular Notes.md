@@ -1,4 +1,4 @@
-![Prototype chain](https://github.com/abfarhan/Angular-Doc/blob/master/assets/angular%doc.png?raw=true)
+![Prototype chain](https://github.com/abfarhan/Angular-Doc/blob/master/assets/angular%20doc.png?raw=true)
 
 ---
 
@@ -16,24 +16,58 @@
 - [Event binding](#event-binding)
 - [Angular Authentication and Authorization](#angular-authentication-and-Authorization)
 - [Difference between Angular and AngularJS](#difference-between-Angular-and-AngularJS)
-- []()
-- []()
-- []()
-- []()
+- [Dependency Injection](#dependency-injection)
+- [How angular application starts](#how-angular-application-starts)
+- [Service](#service)
+- [AsyncPipe](#asyncPipe)
+- [Directives overview](#directives-overview)
+- [Angular Compilation](#angular-compilation)
+- [Why do we need compilation process](#why-do-we-need-compilation-process)
+- [Binding to custom properties in angular](#binding-to-custom-properties-in-angular)
+- [Binding to custom event](#binding-to-custom-event)
+- [View Encapsulation](#view-encapsulation)
+- [Local Reference (Template reference)](<#local-Reference-(template-reference)>)
+- [@ViewChild](#@viewChild)
+- [@ContentChild](#@contentChild)
+- [Lifecycle hooks](#lifecycle-hooks)
+- [Navigating between different routes](#navigating-between-different-routes)
+- [Building blocks of Angular](#building-blocks-of-Angular)
+- [Lazy-loading feature modules](#lazy-loading-feature-modules)
+- [ng-template](#ng-template)
+- [Custom directive](#custom-directive)
+- [@HostListener() Decorator](<#@hostListener()-decorator>)
+- [@HostBinding() Decorator](<#@hostBinding()-decorator>)
+- [Binding to directive property](#binding-to-directive-property)
+- [Creating custom structural directive](#creating-custom-structural-directive)
+- [Router Link](#router-link)
+- [Fetching route parameters](#fetching-route-parameters)
+- [Query Parameters and Fragments](#query-Parameters-and-fragments)
+- [Nested Route (child routes)](<#nested-route-(child-routes)>)
+- [Handling query parameters](#handling-query-parameters)
+- [Redirecting Routes](#redirecting-routes)
+- [canActivate & canActivateChild](#canActivate-&-canActivateChild)
+- [CanDeactivate](#canDeactivate)
+- [Synchronous](#synchronous)
+- [Asynchronous](#asynchronous)
+- [RXJS (Reactive Extensions for JavaScript)](<#rxjs-(reactive-extensions-for-javaScript)>)
+- [Observables](#observables)
+- [Promise](#promise)
+- [Promise vs Observable](#promise-vs-observable)
+- [Difference between find() and filter()](<#difference-between-find()-and-filter()>)
 
-## - What is Angular?
+## **What is Angular**
 
 Angular is a TypeScript based open source web application framework, developed and maintained by Google.<br/>
 It offers an easy and powerful way of building single page web-based applications.<br/>
 
-## - ng-content
+## **ng-content**
 
 ng-content is used for content projection.<br/>
 You use the `<ng-content></ng-content>` tag as a placeholder for that dynamic content,
 then when the template is parsed Angular will replace that placeholder tag with your content.<br/>
 ng-content is very useful when creating component libraries or reusable components.
 
-## - Data Binding
+## **Data Binding**
 
 It is the communication b/w the typescript code of the component and the HTML template.
 
@@ -42,12 +76,12 @@ It is the communication b/w the typescript code of the component and the HTML te
     	* Two way binding
     	* Event binding
 
-## - String interpolation
+## **String interpolation**
 
 string interpolation is a one way data binding technique which is used to display out put fron typescript code to html template.<br/>
 Basically we can show dynamic values in html.
 
-## - Property binding
+## **Property binding**
 
 Binding HTML property with typescript property or data.
 
@@ -56,14 +90,14 @@ Binding HTML property with typescript property or data.
 <button class="btn btn-primary" [disabled]="userName === ''">Enter name</button>
 ```
 
-## - Event binding
+## **Event binding**
 
 In angular event binding is used to handle the events raised from the DOM like button click, mouse move etc.<br/>
 When the DOM event happens (eg. click, change, keyup), it calls the specified method in the component
 
 `<button (click)="onButtonClick()"></button>`
 
-## - Event Bubbling
+## **Event Bubbling**
 
 When Angular attaches event handlers to standard HTML element events,
 the event propagation works in the same way as standard DOM event propagation works. This is also called event bubbling.<br/>
@@ -80,7 +114,7 @@ Clicking on either of the div results in the invocation of the doWork function o
 Moreover, \$event.target contains the reference to the div that dispatched the event.<br/>
 Custom events created on Angular components do not support event bubbling.<br/>
 
-## - Angular Authentication and Authorization
+## **Angular Authentication and Authorization**
 
 The user login credentials are passed to an authenticate API, which is present on the server. <br/>
 Post server-side validation of the credentials, a JWT (JSON Web Token) is returned. <br/>
@@ -89,19 +123,19 @@ The JWT has information or attributes regarding the current user. The user is th
 Post logging-in successfully, different users have a different level of access.<br/>
 While some may access everything, access for others might be restricted to only some resources. The level of access is authorization.
 
-## - Difference between Angular and AngularJS
+## **Difference between Angular and AngularJS**
 
 - Architecture - AngularJS supports the MVC design model. Angular relies on components and directives instead
 - Dependency Injection (DI) - Angular supports a hierarchical Dependency Injection with unidirectional tree-based change detection. AngularJS doesn’t support DI
 - Mobile Support - AngularJS doesn’t have mobile support while Angular does have
 - Recommended Language - While JavaScript is the recommended language for AngularJS, TypeScript is the recommended language for Angular
 
-## - Dependency Injection
+## **Dependency Injection**
 
 Dependency Injection (DI) is a core concept of Angular 2+ and allows a class receive dependencies from another class. <br/>
 Most of the time in Angular, dependency injection is done by injecting a service class into a component or module class.
 
-## - How angular application starts
+## **How angular application starts**
 
 - Angular started with main.ts.<br/>
 - Main.ts file is the first code that gets executed.<br/>
@@ -112,11 +146,11 @@ Most of the time in Angular, dependency injection is done by injecting a service
 - And angular now analyze this app component, reading the set up we pass there and recognises SELECTOR app-root.<br/>
 - Now, angular is enable to handle app-root in the index.html.<br/>
 
-`main.ts -> app.module -> AppComponent`
+> main.ts -> app.module -> AppComponent
 
 angular adds scripts to the html with that angular code is able to parse app-root
 
-## - Service
+## **Service**
 
 A service is typically a class with a well-defined purpose. A service is used when a common functionality needs to be provided to various modules. <br/>
 Services allow for greater seperation of concerns for your application and better modularity by allowing you to extract common functionality out of components. <br/>
@@ -140,7 +174,7 @@ import { Injectable } from '@angular/core';
  }
 ```
 
-## - AsyncPipe
+## **AsyncPipe**
 
 The async pipe subscribes to an Observable or Promise and returns the latest value it has emitted. <br/>
 When a new value is emitted, the async pipe marks the component to be checked for changes. <br/>
@@ -158,7 +192,7 @@ export class AsyncObservablePipeComponent {
 }
 ```
 
-## - Directives overview
+## **Directives overview**
 
 Directives are something that extends the functionality of html. <br>
 There are three kinds of directives in Angular:
@@ -170,7 +204,7 @@ There are three kinds of directives in Angular:
 -- structural directives
 Structural directives—change the DOM layout by adding and removing DOM elements.
 
--- \*ngFor
+### **\*ngFor**
 
 A structural directive that renders a template for each item in a collection.
 
@@ -178,7 +212,7 @@ A structural directive that renders a template for each item in a collection.
 <li *ngFor="let item of items; index as i; trackBy: trackByFn">...</li>
 ```
 
--- \*ngIf
+### **\*ngIf**
 
 A structural directive that conditionally includes a template based on the value of an expression coerced to Boolean
 
@@ -187,7 +221,7 @@ A structural directive that conditionally includes a template based on the value
 <ng-template #elseBlock>Content to render when condition is false.</ng-template>
 ```
 
--- \*ngSwitch
+### **\*ngSwitch**
 
 A structural directive that adds or removes templates (displaying or hiding views) when the next match expression matches the switch expression.
 
@@ -202,14 +236,14 @@ A structural directive that adds or removes templates (displaying or hiding view
 </container-element>
 ```
 
-## - Angular Compilation
+## **Angular Compilation**
 
 Angular offers two ways to compile your application:<br/>
 
 - Just-in-Time (JIT), which compiles your app in the browser at runtime.<br/>
 - Ahead-of-Time (AOT), which compiles your app at build time.<br/>
 
--- AOT Compilation
+### **_AOT Compilation_**
 
 The Angular ahead-of-time (AOT) compiler converts your Angular HTML and TypeScript code into efficient JavaScript
 code during the build phase before the browser downloads and runs that code. <br/>
@@ -220,13 +254,13 @@ For AOT compilation, include the --aot option with the ng build or ng serve comm
 - ng build --aot
 - ng serve --aot
 
-## - Why do we need compilation process?
+## **Why do we need compilation process**
 
 An Angular application consists mainly of components and their HTML templates.<br/>
 Because the components and templates provided by Angular cannot be understood by the browser directly,
 Angular applications require a compilation process before they can run in a browser.
 
-## - Binding to custom properties in angular
+## **Binding to custom properties in angular**
 
 using @Input()
 passing data from parent component to child component
@@ -238,12 +272,12 @@ passing data from parent component to child component
 Both are same. If we are using [] the we need to put our string in ' ' (single quote) inside " " (double quote).
 If we are not using [] the we can put our string directly inside " " (double quote) and no need of '' (single quote).
 
-## - Binding to custom event
+## **Binding to custom event**
 
 using @Output() and EventEmitter
 passing data from child component to parent component
 
-## - View Encapsulation
+## **View Encapsulation**
 
 Angular uses View Encapsulation to make use of shadow dom technique to add unique attribute to its element.
 So that the styles of this component only applied inside the component.
@@ -268,7 +302,7 @@ will be considered as global styles.
 })
 ```
 
-## - Local Reference (Template reference)
+## **Local Reference (Template reference)**
 
 Using template reference we can get access to some elements in the template and then use it either directly in the template
 or pass it to the typescript code.
@@ -282,7 +316,7 @@ or pass it to the typescript code.
 </div>
 ```
 
-## - @ViewChild
+## **@ViewChild**
 
 With @ViewChild (add { static: true } as a second argument) needs to be applied if you plan on accessing the selected element inside of ngOnInit().
 If you DON'T access the selected element in ngOnInit (but anywhere else in your component), set static: false instead!
@@ -290,11 +324,11 @@ If you're using Angular 9, you only need to add { static: true } (if needed) but
 
 Using viewchild we can get access to the html element.
 
-## - @ContentChild
+## **@ContentChild**
 
 Using content child we can get access to the elements in the parent component.
 
-## - Lifecycle hooks
+## **Lifecycle hooks**
 
 constructor is called first. Then followed by hooks.
 
@@ -309,7 +343,7 @@ ngOnChanges() accepts a parameter eg: ngOnChanges(changes: SimpleChanges) {}
 - ngAfterViewChecked()
 - ngOnDestroy()
 
-## - navigating between different routes
+## **Navigating between different routes**
 
 ```
 <a class="nav-link" (click)="goHome()">Home</a>
@@ -326,7 +360,7 @@ constructor(private router: Router) {}
   }
 ```
 
-## - Building blocks of Angular
+## **Building blocks of Angular**
 
 - Components
 - Directives
@@ -336,9 +370,9 @@ constructor(private router: Router) {}
 - Services
 - Data Binding
 
-## - Lazy-loading feature modules
+## **Lazy-loading feature modules**
 
-src/app/app.component.html
+> src/app/app.component.html
 
 ```
 <button routerLink="/customers">Customers</button>
@@ -346,7 +380,7 @@ src/app/app.component.html
 <button routerLink="">Home</button>
 ```
 
-src/app/app-routing.module.ts
+> src/app/app-routing.module.ts
 
 ```
 const routes: Routes = [
@@ -369,9 +403,9 @@ const routes: Routes = [
 The first two paths are the routes to the CustomersModule and the OrdersModule.
 The final entry defines a default route. The empty path matches everything that doesn't match an earlier path.
 
-Inside the feature module
+**Inside the feature module**
 
-src/app/customers/customers.module.ts
+> src/app/customers/customers.module.ts
 
 ```
 import { NgModule } from '@angular/core';
@@ -389,7 +423,7 @@ import { CustomersComponent } from './customers.component';
 export class CustomersModule { }
 ```
 
-src/app/customers/customers-routing.module.ts
+> src/app/customers/customers-routing.module.ts
 
 ```
 import { NgModule } from '@angular/core';
@@ -410,7 +444,7 @@ const routes: Routes = [
 export class CustomersRoutingModule { }
 ```
 
-src/app/orders/orders-routing.module.ts
+> src/app/orders/orders-routing.module.ts
 
 ```
 import { OrdersComponent } from './orders.component';
@@ -423,9 +457,9 @@ const routes: Routes = [
 ];
 ```
 
-For detailed documentation [check](https://angular.io/guide/lazy-loading-ngmodules)
+For detailed documentation **_[check](https://angular.io/guide/lazy-loading-ngmodules)_**
 
-## - ng-template
+## **ng-template**
 
 ng-template is a virtual element and its contents are displayed only when needed (based on conditions).
 ng-template should be used along with structural directives like [ngIf],[ngFor],[NgSwitch] or custom structural directives.
@@ -448,7 +482,7 @@ Angular will evaluate the ng-template element to convert it into a comment secti
  ng-template example
 </div>
 
-<!-- COnverted Element -->
+<!-- Converted Element -->
 <ng-template [ngIf]="display">
  <div class="ng-template-example">ng-template example</div>
 </ng-template>
@@ -457,9 +491,9 @@ Angular will evaluate the ng-template element to convert it into a comment secti
 The directive being converted to data member of ng-template
 The inline template element along with the attributes (class etc), moved inside the ng-template element
 
-For detailed documentation [check](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)
+For detailed documentation **[check](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)**
 
-## - Custom directive
+## **Custom directive**
 
 ```
 import { Directive, ElementRef, OnInit } from '@angular/core'
@@ -476,13 +510,13 @@ export class ExampleDirective implements OnInit {
 }
 ```
 
-In the component html
+> In the component html
 
 ```
 <button appExample>Button</button>
 ```
 
-Also there is a better way to create directive, as shown in below
+**Also there is a better way to create directive, as shown in below**
 
 ```
 import { Directive, OnInit, ElementRef, Renderer2 } from '@angular/core'
@@ -499,15 +533,15 @@ export class ExampleDirective implements OnInit {
 }
 ```
 
-In the component html
+> In the component html
 
 ```
 <button appBetterExample>Button</button>
 ```
 
-Learn more about the available Renderer methods [here.](https://angular.io/api/core/Renderer2)
+Learn more about the available Renderer methods **[here.](https://angular.io/api/core/Renderer2)**
 
-## - @HostListener() Decorator
+## **@HostListener() Decorator**
 
 In Angular, the @HostListener() function decorator allows you to handle events of the host element in the directive class.
 
@@ -537,7 +571,7 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'backgroundColor', color)
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <div appBetterExample> Some thing </div>
@@ -547,7 +581,7 @@ In the above example at first the background color will be transparent when we h
 And when the mouse moved away color will be red.
 If we want red color initially call this.ChangeBgColor('red'); in ngOnInit().
 
-## - @HostBinding() Decorator
+## **@HostBinding() Decorator**
 
 In Angular, the @HostBinding() function decorator allows you to set the properties of the host element from the directive class.
 
@@ -572,7 +606,7 @@ export class BetterExampleDirective {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <div appBetterExample> Some thing </div>
@@ -581,9 +615,9 @@ In component.html
 Here also initially the bg color will be transparent, when we hover over the div element bg color will be blue and
 when the mouse moved away bg color will be red.
 
-## - Binding to directive property
+## **Binding to directive property**
 
--- Method 1.
+### **Method 1**:
 
 ```
 import { Directive, HostListener, HostBinding, Input, OnInit } from '@angular/core';
@@ -614,13 +648,13 @@ export class BetterExampleDirective implements OnInit {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <div appBetterExample [defaultColor]="'yellow'" [highlightColor]="'orange'"> Some thing </div>
 ```
 
--- Method 2.
+### **Method 2**:
 
 ```
 import { Directive, HostListener, HostBinding, Input, OnInit } from '@angular/core';
@@ -651,7 +685,7 @@ export class BetterExampleDirective implements OnInit {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <div [appBetterExample]="'orange'" [defaultColor]="'yellow'"> Some thing </div>
@@ -660,7 +694,7 @@ In component.html
 In method 2 we are giving the selector of directive as an alias for @Input of highlightColor.
 So that we can pass the heighlight color directly by binding the directive in html.
 
-## - Creating custom structural directive
+## **Creating custom structural directive**
 
 Below is the directive that works similar as angular \*ngIF
 
@@ -686,7 +720,7 @@ export class MyIfDirective {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <div *ngIf="show" >Angular *ngIf</div>
@@ -695,7 +729,7 @@ In component.html
 
 In the above example *myIf directive works same way as *ngIf.
 
-## - Router Link
+## **Router Link**
 
 ```
 <li role="presentation"><a [routerLink]="['/servers']">Servers</a></li>
@@ -705,7 +739,7 @@ In the above example *myIf directive works same way as *ngIf.
 Both the syntax are correct. But the 1st syntax will be useful when we have dynamic values to generate the link.
 For detailed documentation [visit here](https://angular.io/api/router/RouterLink#description)
 
-The syntax without / will work if we are in the parent component and navigating to Servers component.
+The syntax without `/` will work if we are in the parent component and navigating to Servers component.
 
 ```
 <li role="presentation"><a [routerLink]="['servers']">Servers</a></li>
@@ -721,7 +755,7 @@ eg: if we are in the `localhost:4200/servers` then clicking on another routerLin
 
 Because it will add `localhost:4200/servers/servers`.
 
--- If we want to add some class when the link is active we can use routerLinkActive.
+### If we want to add some class when the link is active we can use routerLinkActive.
 
 ```
 <a [routerLink]="['/servers']" routerLinkActive="active">Servers</a>
@@ -739,7 +773,7 @@ a given RouterLink will only be active if its URL is an exact match to the curre
 
 For more click [here](https://angular.io/api/router/RouterLinkActive#description)
 
--- Navigating programmatically
+### **Navigating programmatically**
 
 ```
  //in your constructor
@@ -747,11 +781,11 @@ For more click [here](https://angular.io/api/router/RouterLinkActive#description
 
  onReloadClick() {
  //navigation link.
-this.router.navigate(['/servers']);
+ this.router.navigate(['/servers']);
  }
 ```
 
--- To add relative path
+### **To add relative path**
 
 ```
 constructor( private route: ActivatedRoute) {}
@@ -761,9 +795,9 @@ onReloadClick() {
  }
 ```
 
-## - Fetching route parameters
+## **Fetching route parameters**
 
-In module .ts
+> In module .ts
 
 ```
 const routes: Routes = [
@@ -772,7 +806,7 @@ const routes: Routes = [
 
 ```
 
-In component.ts
+> In component.ts
 
 ```
 export class UserComponent implements OnInit {
@@ -789,7 +823,7 @@ export class UserComponent implements OnInit {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <p>User with ID {{user.id}} loaded.</p>
@@ -800,7 +834,7 @@ This is how the parameters are fetched from route.
 But this will not work if we are already in the user component and we are updating the user route.
 For that we need to fetch route reactively as shown below.
 
-In component.ts
+> In component.ts
 
 ```
 export class UserComponent implements OnInit {
@@ -821,7 +855,7 @@ export class UserComponent implements OnInit {
 }
 ```
 
-In component.html
+> In component.html
 
 ```
 <p>User with ID {{user.id}} loaded.</p>
@@ -830,16 +864,17 @@ In component.html
 <button class="btn btn-primary" [routerLink]="['/users', '10', 'Anna']">Anna (10)</button>
 ```
 
-## - Query Parameters and Fragments
+## **Query Parameters and Fragments**
 
--- Adding query parameters and fragments using routerLink
-In routes
+### Adding query parameters and fragments using routerLink
+
+> In routes
 
 ```
 {path: 'servers/:id/edit', component: EditServerComponent},
 ```
 
-In component.html
+> In component.html
 
 ```
  <a
@@ -852,15 +887,15 @@ In component.html
 </a>
 ```
 
--- Adding query parameters and fragments programmatically (in ts)
+### Adding query parameters and fragments programmatically (in ts)
 
-In component.html
+> In component.html
 
 ```
 <button class="btn btn-primary" (click)="onReloadClick(1)">Reload Server 1</button>
 ```
 
-In component.ts
+> In component.ts
 
 ```
 onReloadClick(id:number) {
@@ -868,7 +903,7 @@ onReloadClick(id:number) {
   }
 ```
 
--- Retrieving query parameters and fragments
+### Retrieving query parameters and fragments
 
 ```
 constructor(private route: ActivatedRoute) { }
@@ -884,7 +919,7 @@ ngOnInit() {
 
 Just like params query params we can subscribe and use.
 
-## - Nested Route (child routes)
+## **Nested Route (child routes)**
 
 ```
 const routes: Routes = [
@@ -901,7 +936,7 @@ const routes: Routes = [
 
 Now add `<router-outlet></router-outlet>` directive where you want to show the child components.
 
-## - Handling query parameters
+## **Handling query parameters**
 
 If we want to preserve the queryParams that we set from one child component while navigating to another child
 component we can use `queryParamsHandling: "preserve"`.
@@ -913,13 +948,13 @@ this.router.navigate(['/edit'], queryParamsHandling: "preserve" });
 
 For more visit [here.](https://angular.io/api/router/QueryParamsHandling)
 
-## - Redirecting Routes
+## **Redirecting Routes**
 
 ```
 { path: '', redirectTo: '/somewhere-else', pathMatch: 'full' }
 ```
 
-## - canActivate & canActivateChild
+## **canActivate & canActivateChild**
 
 ```
  {path: 'servers',
@@ -934,24 +969,24 @@ For more visit [here.](https://angular.io/api/router/QueryParamsHandling)
 
 To protect the route we can use canActivate and to protect the child route use canActivateChild.
 
-## - CanDeactivate
+## **CanDeactivate**
 
 <center>⚠️ Work In Progress ⚠️</center>
 
-## - Synchronous
+## **Synchronous**
 
 Synchronous code waits for one action to complete before moving to the next.
 
-## - Asynchronous
+## **Asynchronous**
 
 Asynchronous execution means that immediately after the client calls the method, it continues to execute the next JavaScript statement or
 and when these results are returned a callback function is executed on the client according to certain conditions.
 
-## - RXJS (Reactive Extensions for JavaScript)
+## **RXJS (Reactive Extensions for JavaScript)**
 
 RxJS is a library for reactive programming which can be used to deal with asynchronous data streams.
 
-## - Observables
+## **Observables**
 
 An Observable is an object that over time and asynchronously emits multiple data values (data stream).
 
@@ -967,7 +1002,7 @@ data.next(3);
 }).subscribe(element => console.log('Observable ' + element));
 ```
 
-Output
+> Output
 
 ```
 Observable 1
@@ -975,7 +1010,7 @@ Observable 2
 Observable 3
 ```
 
-## - Promise
+## **Promise**
 
 - Promise returns the value regardless of then() method.
 - Promise is not cancellable in nature.
@@ -988,26 +1023,32 @@ const promise = new Promise((data) =>
 	.then(element => console.log(‘Promise ‘ + element));
 ```
 
-Output
+> Output
 
 ```
 Promise 1
 ```
 
-## - Promise vs Observable
+## **Promise vs Observable**
 
 As soon as a promise is made, the execution takes place. But Observables are lazy so nothing happens until a subscription is made.
 While promises handle a single event, observable is a stream that allows passing of more than one event. A callback is made for each event in an observable.
 
-## - Difference between find() and filter()
+## **Difference between find() and filter()**
 
--- find()
+### **find()**
 
 - The find() method returns the first value that matches from the collection. Once it matches the value in findings,
   it will not check the remaining values in the array collection.<br/>
 - Find return an object.
 
--- filter()
+### **filter()**
 
 - The filter() method returns the matched values in an array from the collection. It will check all values in the collection and return the matched values in an array.<br/>
 - Filter returns an array.
+
+---
+
+<center>⚠️ Work In Progress ⚠️</center>
+
+---
