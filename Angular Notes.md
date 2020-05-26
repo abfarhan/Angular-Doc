@@ -71,10 +71,10 @@ ng-content is very useful when creating component libraries or reusable componen
 
 It is the communication b/w the typescript code of the component and the HTML template.
 
-    	* Interpolation
-    	* One way binding (property binding)
-    	* Two way binding
-    	* Event binding
+- Interpolation
+- One way binding (property binding)
+- Two way binding
+- Event binding
 
 ## **String interpolation**
 
@@ -85,8 +85,8 @@ Basically we can show dynamic values in html.
 
 Binding HTML property with typescript property or data.
 
-```
-<input type="text" class="form-control" [(ngModel)]="userName">
+```html
+<input type="text" class="form-control" [(ngModel)]="userName" />
 <button class="btn btn-primary" [disabled]="userName === ''">Enter name</button>
 ```
 
@@ -104,9 +104,10 @@ the event propagation works in the same way as standard DOM event propagation wo
 
 Event bubbling allows a single handler on a parent element to listen to events fired by any of its children.
 
-```
-<div id="parent" (click)="doWork($event)"> Try
-<div id="child">me!</div>
+```html
+<div id="parent" (click)="doWork($event)">
+  Try
+  <div id="child">me!</div>
 </div>
 ```
 
@@ -156,22 +157,22 @@ A service is typically a class with a well-defined purpose. A service is used wh
 Services allow for greater seperation of concerns for your application and better modularity by allowing you to extract common functionality out of components. <br/>
 Angular also comes with its own dependency injection framework for resolving dependencies, so you can have your services depend on other services throughout your application.
 
-```
+```typescript
 import { Injectable } from '@angular/core';
- import { Http } from '@angular/http';
+import { Http } from '@angular/http';
 
- @Injectable({ // The Injectable decorator is required for dependency injection to work
-   // providedIn option registers the service with a specific NgModule
-   providedIn: 'root',  // This declares the service with the root app (AppModule)
- })
- export class RepoService{
-   constructor(private http: Http){
-   }
+@Injectable({
+  // The Injectable decorator is required for dependency injection to work
+  // providedIn option registers the service with a specific NgModule
+  providedIn: 'root', // This declares the service with the root app (AppModule)
+})
+export class RepoService {
+  constructor(private http: Http) {}
 
-   fetchAll(){
-     return this.http.get('https://api.github.com/repositories');
-   }
- }
+  fetchAll() {
+    return this.http.get('https://api.github.com/repositories');
+  }
+}
 ```
 
 ## **AsyncPipe**
@@ -180,15 +181,16 @@ The async pipe subscribes to an Observable or Promise and returns the latest val
 When a new value is emitted, the async pipe marks the component to be checked for changes. <br/>
 When the component gets destroyed, the async pipe unsubscribes automatically to avoid potential memory leaks. <br/>
 
-```
+```typescript
 @Component({
- selector: 'async-observable-pipe',
- template: '<div><code>observable|async</code>: Time: {{ time | async }}</div>'
+  selector: 'async-observable-pipe',
+  template:
+    '<div><code>observable|async</code>: Time: {{ time | async }}</div>',
 })
 export class AsyncObservablePipeComponent {
- time = new Observable<string>((observer: Observer<string>) => {
-   setInterval(() => observer.next(new Date().toString()), 1000);
- });
+  time = new Observable<string>((observer: Observer<string>) => {
+    setInterval(() => observer.next(new Date().toString()), 1000);
+  });
 }
 ```
 
@@ -208,7 +210,7 @@ Structural directives—change the DOM layout by adding and removing DOM element
 
 A structural directive that renders a template for each item in a collection.
 
-```
+```html
 <li *ngFor="let item of items; index as i; trackBy: trackByFn">...</li>
 ```
 
@@ -216,8 +218,10 @@ A structural directive that renders a template for each item in a collection.
 
 A structural directive that conditionally includes a template based on the value of an expression coerced to Boolean
 
-```
-<div *ngIf="condition; else elseBlock">Content to render when condition is true.</div>
+```html
+<div *ngIf="condition; else elseBlock">
+  Content to render when condition is true.
+</div>
 <ng-template #elseBlock>Content to render when condition is false.</ng-template>
 ```
 
@@ -225,12 +229,14 @@ A structural directive that conditionally includes a template based on the value
 
 A structural directive that adds or removes templates (displaying or hiding views) when the next match expression matches the switch expression.
 
-```
+```html
 <container-element [ngSwitch]="switch_expression">
   <!-- the same view can be shown in more than one case -->
   <some-element *ngSwitchCase="match_expression_1">...</some-element>
   <some-element *ngSwitchCase="match_expression_2">...</some-element>
-  <some-other-element *ngSwitchCase="match_expression_3">...</some-other-element>
+  <some-other-element *ngSwitchCase="match_expression_3"
+    >...</some-other-element
+  >
   <!--default case when there are no matches -->
   <some-element *ngSwitchDefault>...</some-element>
 </container-element>
@@ -262,20 +268,24 @@ Angular applications require a compilation process before they can run in a brow
 
 ## **Binding to custom properties in angular**
 
-using @Input()
-passing data from parent component to child component
+using @Input() passing data from parent component to child component
 
-`<div [highlightColor] = "'orange'" ></div>`<br/>
-------- or ------- <br/>
-`<div highlightColor = "orange" ></div>`<br/>
+```html
+<div [highlightColor]="'orange'"></div>
+```
 
-Both are same. If we are using [] the we need to put our string in ' ' (single quote) inside " " (double quote).
-If we are not using [] the we can put our string directly inside " " (double quote) and no need of '' (single quote).
+> ------- or -------
+
+```html
+<div highlightColor="orange"></div>
+```
+
+Both are same. If we are using `[]` the we need to put our string in `' '` (single quote) inside `" "` (double quote).
+If we are not using `[]` the we can put our string directly inside `" "` (double quote) and no need of `''` (single quote).
 
 ## **Binding to custom event**
 
-using @Output() and EventEmitter
-passing data from child component to parent component
+using @Output() and EventEmitter passing data from child component to parent component
 
 ## **View Encapsulation**
 
@@ -293,7 +303,7 @@ The default ViewEncapsulation is Emulated. We can remove the encapsulation by se
 If we set the ViewEncapsulation to none they don't receive there unique selector therefore the styles written in that component
 will be considered as global styles.
 
-```
+```typescript
 @Component({
   selector: 'my-app',
   templateUrl: './my-app.component.html',
@@ -307,20 +317,20 @@ will be considered as global styles.
 Using template reference we can get access to some elements in the template and then use it either directly in the template
 or pass it to the typescript code.
 
-```
+```html
 <div>
-<input type="text" #thisIsTheReference />
+  <input type="text" #thisIsTheReference />
 </div>
-<div >
-<button (click)="onClickButton(thisIsTheReference)">Add Gift</button>
+<div>
+  <button (click)="onClickButton(thisIsTheReference)">Add Gift</button>
 </div>
 ```
 
 ## **@ViewChild**
 
-With @ViewChild (add { static: true } as a second argument) needs to be applied if you plan on accessing the selected element inside of ngOnInit().
-If you DON'T access the selected element in ngOnInit (but anywhere else in your component), set static: false instead!
-If you're using Angular 9, you only need to add { static: true } (if needed) but not { static: false }.
+With `@ViewChild` (add `{ static: true }` as a second argument) needs to be applied if you plan on accessing the selected element inside of `ngOnInit()`.
+If you don't access the selected element in `ngOnInit` (but anywhere else in your component), set `static: false` instead.
+If you're using Angular 9, you only need to add `{ static: true }` (if needed) but not `{ static: false }`.
 
 Using viewchild we can get access to the html element.
 
@@ -345,10 +355,12 @@ ngOnChanges() accepts a parameter eg: ngOnChanges(changes: SimpleChanges) {}
 
 ## **Navigating between different routes**
 
-```
+```html
 <a class="nav-link" (click)="goHome()">Home</a>
 <a class="nav-link" (click)="goSearch()">Search</a>
+```
 
+```typescript
 import {Router} from "@angular/router";
 
 constructor(private router: Router) {}
@@ -358,6 +370,7 @@ constructor(private router: Router) {}
   goSearch() {
     this.router.navigate(['search']);
   }
+
 ```
 
 ## **Building blocks of Angular**
@@ -382,21 +395,23 @@ constructor(private router: Router) {}
 
 > src/app/app-routing.module.ts
 
-```
+```typescript
 const routes: Routes = [
   {
     path: 'customers',
-    loadChildren: () => import('./customers/customers.module').then(m => m.CustomersModule)
+    loadChildren: () =>
+      import('./customers/customers.module').then((m) => m.CustomersModule),
   },
   {
     path: 'orders',
-    loadChildren: () => import('./orders/orders.module').then(m => m.OrdersModule)
+    loadChildren: () =>
+      import('./orders/orders.module').then((m) => m.OrdersModule),
   },
   {
     path: '',
     redirectTo: '',
-    pathMatch: 'full'
-  }
+    pathMatch: 'full',
+  },
 ];
 ```
 
@@ -407,25 +422,22 @@ The final entry defines a default route. The empty path matches everything that 
 
 > src/app/customers/customers.module.ts
 
-```
+```typescript
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { CustomersComponent } from './customers.component';
 
 @NgModule({
- imports: [
-   CommonModule,
-   CustomersRoutingModule
- ],
- declarations: [CustomersComponent]
+  imports: [CommonModule, CustomersRoutingModule],
+  declarations: [CustomersComponent],
 })
-export class CustomersModule { }
+export class CustomersModule {}
 ```
 
 > src/app/customers/customers-routing.module.ts
 
-```
+```typescript
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CustomersComponent } from './customers.component';
@@ -433,27 +445,27 @@ import { CustomersComponent } from './customers.component';
 const routes: Routes = [
   {
     path: '',
-    component: CustomersComponent
-  }
+    component: CustomersComponent,
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CustomersRoutingModule { }
+export class CustomersRoutingModule {}
 ```
 
 > src/app/orders/orders-routing.module.ts
 
-```
+```typescript
 import { OrdersComponent } from './orders.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrdersComponent
-  }
+    component: OrdersComponent,
+  },
 ];
 ```
 
@@ -477,14 +489,14 @@ and Angular will convert directive attribute to ng-template element.
 ng-template is not exactly a true web element. When we compile our code, we will not see a ng-template tag in HTML DOM.
 Angular will evaluate the ng-template element to convert it into a comment section in HTML DOM.
 
-```
+```html
 <div *ngIf="display" class="ng-template-example">
- ng-template example
+  ng-template example
 </div>
 
 <!-- Converted Element -->
 <ng-template [ngIf]="display">
- <div class="ng-template-example">ng-template example</div>
+  <div class="ng-template-example">ng-template example</div>
 </ng-template>
 ```
 
@@ -495,47 +507,51 @@ For detailed documentation **[check](https://www.freecodecamp.org/news/everythin
 
 ## **Custom directive**
 
-```
-import { Directive, ElementRef, OnInit } from '@angular/core'
+```typescript
+import { Directive, ElementRef, OnInit } from '@angular/core';
 
 @Directive({
   selector: '[appExample]',
 })
 export class ExampleDirective implements OnInit {
-  constructor(private elementRef: ElementRef) {  }
+  constructor(private elementRef: ElementRef) {}
 
   ngOnInit() {
-  this.elementRef.nativeElement.style.backgroundColor = '#fff';
+    this.elementRef.nativeElement.style.backgroundColor = '#fff';
   }
 }
 ```
 
 > In the component html
 
-```
+```html
 <button appExample>Button</button>
 ```
 
 **Also there is a better way to create directive, as shown in below**
 
-```
-import { Directive, OnInit, ElementRef, Renderer2 } from '@angular/core'
+```typescript
+import { Directive, OnInit, ElementRef, Renderer2 } from '@angular/core';
 
 @Directive({
   selector: '[appBetterExample]',
 })
 export class ExampleDirective implements OnInit {
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {  }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
-  this.renderer.setStyle(this.elementRef.nativeElement, 'backgroundColor', '#fff')
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'backgroundColor',
+      '#fff'
+    );
   }
 }
 ```
 
 > In the component html
 
-```
+```html
 <button appBetterExample>Button</button>
 ```
 
@@ -545,17 +561,22 @@ Learn more about the available Renderer methods **[here.](https://angular.io/api
 
 In Angular, the @HostListener() function decorator allows you to handle events of the host element in the directive class.
 
-```
-import { Directive, OnInit, ElementRef, Renderer2, HostListener  } from '@angular/core'
+```typescript
+import {
+  Directive,
+  OnInit,
+  ElementRef,
+  Renderer2,
+  HostListener,
+} from '@angular/core';
 
 @Directive({
   selector: '[appBetterExample]',
 })
 export class ExampleDirective implements OnInit {
-  constructor(private elementRef: ElementRef, private renderer: Renderer2) {  }
+  constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   @HostListener('mouseover') onMouseOver() {
     this.ChangeBgColor('blue');
@@ -566,33 +587,37 @@ export class ExampleDirective implements OnInit {
   }
 
   ChangeBgColor(color: string) {
-this.renderer.setStyle(this.elementRef.nativeElement, 'backgroundColor', color)
+    this.renderer.setStyle(
+      this.elementRef.nativeElement,
+      'backgroundColor',
+      color
+    );
   }
 }
 ```
 
 > In component.html
 
-```
-<div appBetterExample> Some thing </div>
+```html
+<div appBetterExample>Some thing</div>
 ```
 
 In the above example at first the background color will be transparent when we hover over the div element backgroundColor will be blue.
 And when the mouse moved away color will be red.
-If we want red color initially call this.ChangeBgColor('red'); in ngOnInit().
+If we want red color initially call `this.ChangeBgColor('red');` in `ngOnInit()`.
 
 ## **@HostBinding() Decorator**
 
 In Angular, the @HostBinding() function decorator allows you to set the properties of the host element from the directive class.
 
-```
+```typescript
 import { Directive, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
-  selector: '[appBetterExample]'
+  selector: '[appBetterExample]',
 })
 export class BetterExampleDirective {
-  @HostBinding('style.backgroundColor') backgroundColor: string   // if we want initial color we can assign here.
+  @HostBinding('style.backgroundColor') backgroundColor: string; // if we want initial color we can assign here.
 
   constructor() {}
 
@@ -608,8 +633,8 @@ export class BetterExampleDirective {
 
 > In component.html
 
-```
-<div appBetterExample> Some thing </div>
+```html
+<div appBetterExample>Some thing</div>
 ```
 
 Here also initially the bg color will be transparent, when we hover over the div element bg color will be blue and
@@ -619,14 +644,19 @@ when the mouse moved away bg color will be red.
 
 ### **Method 1**:
 
-```
-import { Directive, HostListener, HostBinding, Input, OnInit } from '@angular/core';
+```typescript
+import {
+  Directive,
+  HostListener,
+  HostBinding,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appBetterExample]'
+  selector: '[appBetterExample]',
 })
 export class BetterExampleDirective implements OnInit {
-
   @Input() defaultColor: string = 'red';
   @Input() highlightColor: string = 'blue';
 
@@ -650,20 +680,27 @@ export class BetterExampleDirective implements OnInit {
 
 > In component.html
 
-```
-<div appBetterExample [defaultColor]="'yellow'" [highlightColor]="'orange'"> Some thing </div>
+```html
+<div appBetterExample [defaultColor]="'yellow'" [highlightColor]="'orange'">
+  Some thing
+</div>
 ```
 
 ### **Method 2**:
 
-```
-import { Directive, HostListener, HostBinding, Input, OnInit } from '@angular/core';
+```typescript
+import {
+  Directive,
+  HostListener,
+  HostBinding,
+  Input,
+  OnInit,
+} from '@angular/core';
 
 @Directive({
-  selector: '[appBetterExample]'
+  selector: '[appBetterExample]',
 })
 export class BetterExampleDirective implements OnInit {
-
   @Input() defaultColor: string = 'red';
   @Input('appBetterExample') highlightColor: string = 'blue';
 
@@ -687,8 +724,8 @@ export class BetterExampleDirective implements OnInit {
 
 > In component.html
 
-```
-<div [appBetterExample]="'orange'" [defaultColor]="'yellow'"> Some thing </div>
+```html
+<div [appBetterExample]="'orange'" [defaultColor]="'yellow'">Some thing</div>
 ```
 
 In method 2 we are giving the selector of directive as an alias for @Input of highlightColor.
@@ -698,40 +735,40 @@ So that we can pass the heighlight color directly by binding the directive in ht
 
 Below is the directive that works similar as angular \*ngIF
 
-```
+```typescript
 import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
 
 @Directive({
-  selector: '[myIf]'
+  selector: '[myIf]',
 })
 export class MyIfDirective {
-
   @Input() set myIf(condition: boolean) {
     if (condition) {
-      this.vcRef.createEmbeddedView(this.templateRef)
+      this.vcRef.createEmbeddedView(this.templateRef);
     } else {
       this.vcRef.clear();
     }
-
   }
 
-  constructor(private templateRef: TemplateRef<any>, private vcRef: ViewContainerRef) { }
-
+  constructor(
+    private templateRef: TemplateRef<any>,
+    private vcRef: ViewContainerRef
+  ) {}
 }
 ```
 
 > In component.html
 
-```
-<div *ngIf="show" >Angular *ngIf</div>
-<div *myIf="show" >My *myIf</div>
+```html
+<div *ngIf="show">Angular *ngIf</div>
+<div *myIf="show">My *myIf</div>
 ```
 
 In the above example *myIf directive works same way as *ngIf.
 
 ## **Router Link**
 
-```
+```html
 <li role="presentation"><a [routerLink]="['/servers']">Servers</a></li>
 <li role="presentation"><a routerLink="/users">Users</a></li>
 ```
@@ -741,7 +778,7 @@ For detailed documentation [visit here](https://angular.io/api/router/RouterLink
 
 The syntax without `/` will work if we are in the parent component and navigating to Servers component.
 
-```
+```html
 <li role="presentation"><a [routerLink]="['servers']">Servers</a></li>
 ```
 
@@ -749,7 +786,7 @@ But if we are already in the Servers component and adding the relative path and 
 
 eg: if we are in the `localhost:4200/servers` then clicking on another routerLink `[routerLink]="['servers']"` from inside servers page will throw error.
 
-```
+```html
 <a [routerLink]="['servers']">Reload Server</a>
 ```
 
@@ -757,7 +794,7 @@ Because it will add `localhost:4200/servers/servers`.
 
 ### If we want to add some class when the link is active we can use routerLinkActive.
 
-```
+```html
 <a [routerLink]="['/servers']" routerLinkActive="active">Servers</a>
 ```
 
@@ -767,15 +804,20 @@ For more click [here](https://angular.io/api/router/RouterLinkActive#description
 To override this behavior, you can bind to the [routerLinkActiveOptions] input binding with the { exact: true } expression. By using { exact: true },
 a given RouterLink will only be active if its URL is an exact match to the current URL.
 
-```
-<a routerLink="/user" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact:true}">Bob</a>
+```html
+<a
+  routerLink="/user"
+  routerLinkActive="active-link"
+  [routerLinkActiveOptions]="{exact:true}"
+  >Bob</a
+>
 ```
 
 For more click [here](https://angular.io/api/router/RouterLinkActive#description)
 
 ### **Navigating programmatically**
 
-```
+```typescript
  //in your constructor
  constructor(private router: Router){}
 
@@ -787,7 +829,7 @@ For more click [here](https://angular.io/api/router/RouterLinkActive#description
 
 ### **To add relative path**
 
-```
+```typescript
 constructor( private route: ActivatedRoute) {}
 
 onReloadClick() {
@@ -799,7 +841,7 @@ onReloadClick() {
 
 > In module .ts
 
-```
+```typescript
 const routes: Routes = [
  {path: 'users', component: UsersComponent},
  {path: 'users/:id/:name', component: UserComponent}
@@ -808,24 +850,24 @@ const routes: Routes = [
 
 > In component.ts
 
-```
+```typescript
 export class UserComponent implements OnInit {
- user: {id: number, name: string};
+  user: { id: number; name: string };
 
- constructor(private route:ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
- ngOnInit() {
-   this.user = {
-     id: this.route.snapshot.params['id'],
-     name: this.route.snapshot.params['name']
-   }
- }
+  ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['id'],
+      name: this.route.snapshot.params['name'],
+    };
+  }
 }
 ```
 
 > In component.html
 
-```
+```html
 <p>User with ID {{user.id}} loaded.</p>
 <p>User name is {{user.name}}</p>
 ```
@@ -836,32 +878,34 @@ For that we need to fetch route reactively as shown below.
 
 > In component.ts
 
-```
+```typescript
 export class UserComponent implements OnInit {
- user: {id: number, name: string};
+  user: { id: number; name: string };
 
- constructor(private route:ActivatedRoute) { }
+  constructor(private route: ActivatedRoute) {}
 
- ngOnInit() {
-   this.user = {
-     id: this.route.snapshot.params['id'],
-     name: this.route.snapshot.params['name']
-   }
-   this.route.params.subscribe((params: Params) => {
-     this.user.id = params['id'];
-     this.user.name = params['name'];
-   });
- }
+  ngOnInit() {
+    this.user = {
+      id: this.route.snapshot.params['id'],
+      name: this.route.snapshot.params['name'],
+    };
+    this.route.params.subscribe((params: Params) => {
+      this.user.id = params['id'];
+      this.user.name = params['name'];
+    });
+  }
 }
 ```
 
 > In component.html
 
-```
+```html
 <p>User with ID {{user.id}} loaded.</p>
 <p>User name is {{user.name}}</p>
 
-<button class="btn btn-primary" [routerLink]="['/users', '10', 'Anna']">Anna (10)</button>
+<button class="btn btn-primary" [routerLink]="['/users', '10', 'Anna']">
+  Anna (10)
+</button>
 ```
 
 ## **Query Parameters and Fragments**
@@ -870,20 +914,21 @@ export class UserComponent implements OnInit {
 
 > In routes
 
-```
+```typescript
 {path: 'servers/:id/edit', component: EditServerComponent},
 ```
 
 > In component.html
 
-```
- <a
-    [routerLink]= "['/servers', '5', 'edit']"
-    [queryParams]="{allowEdit: '1'}"
-    [fragment]="'loading'"
-    class="list-group-item"
-    *ngFor="let server of servers">
-    {{ server.name }}
+```html
+<a
+  [routerLink]="['/servers', '5', 'edit']"
+  [queryParams]="{allowEdit: '1'}"
+  [fragment]="'loading'"
+  class="list-group-item"
+  *ngFor="let server of servers"
+>
+  {{ server.name }}
 </a>
 ```
 
@@ -891,13 +936,15 @@ export class UserComponent implements OnInit {
 
 > In component.html
 
-```
-<button class="btn btn-primary" (click)="onReloadClick(1)">Reload Server 1</button>
+```html
+<button class="btn btn-primary" (click)="onReloadClick(1)">
+  Reload Server 1
+</button>
 ```
 
 > In component.ts
 
-```
+```typescript
 onReloadClick(id:number) {
     this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'} );
   }
@@ -905,7 +952,7 @@ onReloadClick(id:number) {
 
 ### Retrieving query parameters and fragments
 
-```
+```typescript
 constructor(private route: ActivatedRoute) { }
 
 ngOnInit() {
@@ -921,17 +968,23 @@ Just like params query params we can subscribe and use.
 
 ## **Nested Route (child routes)**
 
-```
+```typescript
 const routes: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'users', component: UsersComponent, children: [
-    {path: ':id/:name', component: UserComponent},
-  ]},
-  {path: 'servers', component: ServersComponent, children: [
-    {path: ':id', component: ServerComponent},
-    {path: ':id/edit', component: EditServerComponent},
-  ]},
-]
+  { path: '', component: HomeComponent },
+  {
+    path: 'users',
+    component: UsersComponent,
+    children: [{ path: ':id/:name', component: UserComponent }],
+  },
+  {
+    path: 'servers',
+    component: ServersComponent,
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: EditServerComponent },
+    ],
+  },
+];
 ```
 
 Now add `<router-outlet></router-outlet>` directive where you want to show the child components.
@@ -942,7 +995,7 @@ If we want to preserve the queryParams that we set from one child component whil
 component we can use `queryParamsHandling: "preserve"`.
 If we want to merge the queryParams with new queryParams we can use `queryParamsHandling: "merge"`.
 
-```
+```typescript
 this.router.navigate(['/edit'], queryParamsHandling: "preserve" });
 ```
 
@@ -950,13 +1003,13 @@ For more visit [here.](https://angular.io/api/router/QueryParamsHandling)
 
 ## **Redirecting Routes**
 
-```
+```typescript
 { path: '', redirectTo: '/somewhere-else', pathMatch: 'full' }
 ```
 
 ## **canActivate & canActivateChild**
 
-```
+```typescript
  {path: 'servers',
   // canActivate: [AuthGuard],
   canActivateChild: [AuthGuard],
@@ -994,12 +1047,12 @@ An Observable is an object that over time and asynchronously emits multiple data
 - If we subscribe to the observable it will simply return the data.
 - Observable is cancellable in nature by invoking unsubscribe() method.
 
-```
+```typescript
 const observable = new Observable((data) => {
-data.next(1);
-data.next(2);
-data.next(3);
-}).subscribe(element => console.log('Observable ' + element));
+  data.next(1);
+  data.next(2);
+  data.next(3);
+}).subscribe((element) => console.log('Observable ' + element));
 ```
 
 > Output
@@ -1015,7 +1068,7 @@ Observable 3
 - Promise returns the value regardless of then() method.
 - Promise is not cancellable in nature.
 
-```
+```typescript
 const promise = new Promise((data) =>
 	{ data(1);
 	  data(2);
