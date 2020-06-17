@@ -57,20 +57,20 @@ private unsubscribe: Subject<void> = new Subject();
  2. Add the following content to the new proxy file:
 
 ``` json
-	{
-		"/ECommerse": {
-			"target": "http://localhost:1405",
-			"secure": false
-		}
+ {
+	"/ECommerse": {
+		"target": "http://localhost:1405",
+		"secure": false
 	}
+ }
 ```
 
 > In the service the code looks like below,
 
 ``` typescript
-	 public getAllProducts() {
-        return this.http.get<any[]>(`/ECommerse/products`);
-    }
+ public getAllProducts() {
+	return this.http.get<any[]>(`/ECommerse/products`);
+ }
 ```
 
  3. There are 2 ways to do the 3rd step,
@@ -78,23 +78,23 @@ private unsubscribe: Subject<void> = new Subject();
 	1. In angular.json, add the proxyConfig option to the serve target:
 
 	``` json
-		"architect": {
-		  "serve": {
-			"builder": "@angular-devkit/build-angular:dev-server",
-			"options": {
-			  "browserTarget": "your-application-name:build",
-			  "proxyConfig": "proxy.conf.json"
-			},
-		```
+	 "architect": {
+		"serve": {
+		"builder": "@angular-devkit/build-angular:dev-server",
+		"options": {
+			"browserTarget": "your-application-name:build",
+			"proxyConfig": "proxy.conf.json"
+	 },
+	```
 
  	2. In package.json add proxy config to the start script.
 
-		``` json
-		"scripts": {
-			"ng": "ng",
-			"start": "ng serve -o --proxy-config proxy.conf.json",
-		},
-		```
+	``` json
+	 "scripts": {
+		"ng": "ng",
+		"start": "ng serve -o --proxy-config proxy.conf.json",
+	 },
+	```
 
 For more click [here](https://angular.io/guide/build#proxying-to-a-backend-server)
 
@@ -106,27 +106,27 @@ For more click [here](https://angular.io/guide/build#proxying-to-a-backend-serve
 > create a service :- 
 
 ``` typescript
-	import { Injectable } from '@angular/core';
-	import { BehaviorSubject } from 'rxjs';
+ import { Injectable } from '@angular/core';
+ import { BehaviorSubject } from 'rxjs';
 
-	@Injectable()
-	export class ProductHelperService {
-		public currentPage = new BehaviorSubject<string>('Product List');
-	}
+ @Injectable()
+ export class ProductHelperService {
+	public currentPage = new BehaviorSubject<string>('Product List');
+ }
 ```
 
 > In one component set the current page value
 
 ``` typescript
-    this.productHelperService.currentPage.next('Add Product');
+ this.productHelperService.currentPage.next('Add Product');
 ``` 
  
 > In other component subscribe to the value 
 
 ``` typescript
-	 this.subscription = this.productHelperService.currentPage.subscribe((val) => {
-      this.currentPage = val;
-    });
+ this.subscription = this.productHelperService.currentPage.subscribe((val) => {
+	this.currentPage = val;
+ });
 ```
 
 
@@ -135,20 +135,20 @@ For more click [here](https://angular.io/guide/build#proxying-to-a-backend-serve
 > create a service :- 
 
 ``` typescript
-	import { Injectable } from '@angular/core';
-	import { BehaviorSubject } from 'rxjs';
+ import { Injectable } from '@angular/core';
+ import { BehaviorSubject } from 'rxjs';
 
-	@Injectable()
-	export class ProductHelperService {
+ @Injectable()
+ export class ProductHelperService {
 
-	private currentPageSource = new BehaviorSubject<string>('Product List');
-	
-	currentPage = this.currentPageSource.asObservable();
-	
-	setCurrentPage(currPage: string) {
-  		this.currentPageSource.next(currPage);
-		}
+ private currentPageSource = new BehaviorSubject<string>('Product List');
+
+ currentPage = this.currentPageSource.asObservable();
+
+ setCurrentPage(currPage: string) {
+	this.currentPageSource.next(currPage);
 	}
+ }
 ```
 
 > In one component set the current page value
@@ -160,7 +160,7 @@ For more click [here](https://angular.io/guide/build#proxying-to-a-backend-serve
 > In other component subscribe to the value 
 
 ``` typescript
-	this.subscription = this.productHelperService.currentPage.subscribe((val) => {
-		this.currentPage = val;
-	});
+ this.subscription = this.productHelperService.currentPage.subscribe((val) => {
+	this.currentPage = val;
+ });
 ```
