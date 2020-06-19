@@ -20,7 +20,6 @@
 - [How angular application starts](#how-angular-application-starts)
 - [Service](#service)
 - [AsyncPipe](#asyncPipe)
-- [Directives overview](#directives-overview)
 - [Angular Compilation](#angular-compilation)
 - [Why do we need compilation process](#why-do-we-need-compilation-process)
 - [Binding to custom properties in angular](#binding-to-custom-properties-in-angular)
@@ -34,6 +33,7 @@
 - [Building blocks of Angular](#building-blocks-of-Angular)
 - [Lazy-loading feature modules](#lazy-loading-feature-modules)
 - [ng-template](#ng-template)
+- [Directives overview](#directives-overview)
 - [Custom directive](#custom-directive)
 - [@HostListener() Decorator](<#@hostListener()-decorator>)
 - [@HostBinding() Decorator](<#@hostBinding()-decorator>)
@@ -197,7 +197,7 @@ And also we can use `@Injectable({ providedIn: 'root' })` instead of providers a
 `Uses component specific injector.`
 
 3. **Eager-loaded Module** : Services provided in eager loaded module is available application wide. The same instance is available application wide.  
-That is the service provided in the eager-loaded module and service provided in the AppModule has exact same effect, so it is recommended to provide the service in the AppModule(or @Injectable({ providedIn: 'root' }). Avoid providing in eager loaded module.  
+That is the service provided in the eager-loaded module and service provided in the AppModule has exact same effect, so it is recommended to provide the service in the AppModule(or `@Injectable({ providedIn: 'root' })`. Avoid providing in eager loaded module.  
 `Uses root injector.`
 
 4. **Lazy-loaded Module** : Service is only available in that lazy loaded module and it gets it's own instance of the service. If we provide service in both the AppModule and Lazy-loaded Module the service is available application wide but the lazy loaded module gets different instance of the service than the rest of the application. So provide the service in the lazy loaded module only if you want the different instance of the service.  
@@ -222,54 +222,6 @@ export class AsyncObservablePipeComponent {
     setInterval(() => observer.next(new Date().toString()), 1000);
   });
 }
-```
-
-## **Directives overview**
-
-Directives are something that extends the functionality of html. <br>
-There are three kinds of directives in Angular:
-
-- Components — directives with a template.
-- Structural directives — change the DOM layout by adding and removing DOM elements.
-- Attribute directives — change the appearance or behavior of an element, component, or another directive.
-
--- structural directives
-Structural directives—change the DOM layout by adding and removing DOM elements.
-
-### **\*ngFor**
-
-A structural directive that renders a template for each item in a collection.
-
-```html
-<li *ngFor="let item of items; index as i; trackBy: trackByFn">...</li>
-```
-
-### **\*ngIf**
-
-A structural directive that conditionally includes a template based on the value of an expression coerced to Boolean
-
-```html
-<div *ngIf="condition; else elseBlock">
-  Content to render when condition is true.
-</div>
-<ng-template #elseBlock>Content to render when condition is false.</ng-template>
-```
-
-### **\*ngSwitch**
-
-A structural directive that adds or removes templates (displaying or hiding views) when the next match expression matches the switch expression.
-
-```html
-<container-element [ngSwitch]="switch_expression">
-  <!-- the same view can be shown in more than one case -->
-  <some-element *ngSwitchCase="match_expression_1">...</some-element>
-  <some-element *ngSwitchCase="match_expression_2">...</some-element>
-  <some-other-element *ngSwitchCase="match_expression_3"
-    >...</some-other-element
-  >
-  <!--default case when there are no matches -->
-  <some-element *ngSwitchDefault>...</some-element>
-</container-element>
 ```
 
 ## **Angular Compilation**
@@ -533,7 +485,56 @@ Angular will evaluate the ng-template element to convert it into a comment secti
 The directive being converted to data member of ng-template
 The inline template element along with the attributes (class etc), moved inside the ng-template element
 
-For detailed documentation **[check](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)**
+For detailed documentation click **[here](https://www.freecodecamp.org/news/everything-you-need-to-know-about-ng-template-ng-content-ng-container-and-ngtemplateoutlet-4b7b51223691/)**
+
+
+## **Directives overview**
+
+Directives are something that extends the functionality of html. <br>
+There are three kinds of directives in Angular:
+
+- Components — directives with a template.
+- Structural directives — change the DOM layout by adding and removing DOM elements.
+- Attribute directives — change the appearance or behavior of an element, component, or another directive.
+
+-- structural directives
+Structural directives—change the DOM layout by adding and removing DOM elements.
+
+### **\*ngFor**
+
+A structural directive that renders a template for each item in a collection.
+
+```html
+<li *ngFor="let item of items; index as i; trackBy: trackByFn">...</li>
+```
+
+### **\*ngIf**
+
+A structural directive that conditionally includes a template based on the value of an expression coerced to Boolean
+
+```html
+<div *ngIf="condition; else elseBlock">
+  Content to render when condition is true.
+</div>
+<ng-template #elseBlock>Content to render when condition is false.</ng-template>
+```
+
+### **\*ngSwitch**
+
+A structural directive that adds or removes templates (displaying or hiding views) when the next match expression matches the switch expression.
+
+```html
+<container-element [ngSwitch]="switch_expression">
+  <!-- the same view can be shown in more than one case -->
+  <some-element *ngSwitchCase="match_expression_1">...</some-element>
+  <some-element *ngSwitchCase="match_expression_2">...</some-element>
+  <some-other-element *ngSwitchCase="match_expression_3"
+    >...</some-other-element
+  >
+  <!--default case when there are no matches -->
+  <some-element *ngSwitchDefault>...</some-element>
+</container-element>
+```
 
 ## **Custom directive**
 
