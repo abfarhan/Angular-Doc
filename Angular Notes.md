@@ -78,8 +78,14 @@ It is the communication b/w the typescript code of the component and the HTML te
 
 ## **String interpolation**
 
-string interpolation is a one way data binding technique which is used to display out put fron typescript code to html template.<br/>
+string interpolation is a one way data binding technique which is used to display out put from typescript code to html template.<br/>
+
+It uses the template expression in double curly braces to display the data from the component to the view. String interpolation adds the value of a property from the component.  
 Basically we can show dynamic values in html.
+
+``` html
+<h3>Current customer: {{ currentCustomer }}</h3>
+```
 
 ## **Property binding**
 
@@ -138,7 +144,7 @@ Most of the time in Angular, dependency injection is done by injecting a service
 
 ## **How angular application starts**
 
-- Angular started with main.ts.<br/>
+- Angular starts with main.ts.<br/>
 - Main.ts file is the first code that gets executed.<br/>
 - The job of main.ts is to bootstrap the application. It loads everything and controls the startup of the application.<br/>
 - Inside main.ts file angular passes AppModule to the bootstrapModule() method.<br/>
@@ -174,6 +180,30 @@ export class RepoService {
   }
 }
 ```
+
+Services can be provided in 4 places.
+
+* AppModule
+* AppComponent (or other components)
+* Eager-loaded module
+* lazy-loaded module
+
+And also we can use `@Injectable({ providedIn: 'root' })` instead of providers array in AppModule (both have same result and `@Injectable({ providedIn: 'root' })`is recommended).
+
+1. **AppModule** : If we provide a service in AppModule the service is available application wide, ie, the same instance of the service is available application wide.  
+`Uses root injector.`
+
+2. **Component** : Service is only available in that component tree. If we provide service to multiple component siblings each component tree have access to different instance of the service.  
+`Uses component specific injector.`
+
+3. **Eager-loaded Module** : Services provided in eager loaded module is available application wide. The same instance is available application wide.  
+That is the service provided in the eager-loaded module and service provided in the AppModule has exact same effect, so it is recommended to provide the service in the AppModule(or @Injectable({ providedIn: 'root' }). Avoid providing in eager loaded module.  
+`Uses root injector.`
+
+4. **Lazy-loaded Module** : Service is only available in that lazy loaded module and it gets it's own instance of the service. If we provide service in both the AppModule and Lazy-loaded Module the service is available application wide but the lazy loaded module gets different instance of the service than the rest of the application. So provide the service in the lazy loaded module only if you want the different instance of the service.  
+`Uses child injector.`
+
+It is recommended to provide the services in root level using `@Injectable({ providedIn: 'root' })` or using `AppModule`.
 
 ## **AsyncPipe**
 
