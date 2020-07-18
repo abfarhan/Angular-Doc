@@ -54,6 +54,7 @@
 - [Promise](#promise)
 - [Promise vs Observable](#promise-vs-observable)
 - [Difference between find() and filter()](#difference-between-find-and-filter)
+- [Angular Decorators](#angular-decorators)
 
 ## **What is Angular**
 
@@ -326,14 +327,14 @@ constructor is called first. Then followed by hooks.
 
 ngOnChanges() accepts a parameter eg: ngOnChanges(changes: SimpleChanges) {}
 
-- ngOnChanges()
-- ngOnInit()
-- ngDoCheck()
-- ngAfterContentInit()
-- ngAfterContentChecked()
-- ngAfterViewInit()
-- ngAfterViewChecked()
-- ngOnDestroy()
+- ngOnChanges() − When the value of a data bound property changes, then this method is called.
+- ngOnInit() − This is called whenever the initialization of the directive/component after Angular first displays the data-bound properties happens.
+- ngDoCheck() − This is for the detection and to act on changes that Angular can't or won't detect on its own.
+- ngAfterContentInit() − This is called in response after Angular projects external content into the component's view.
+- ngAfterContentChecked() − This is called in response after Angular checks the content projected into the component.
+- ngAfterViewInit() − This is called in response after Angular initializes the component's views and child views.
+- ngAfterViewChecked() − This is called in response after Angular checks the component's views and child views.
+- ngOnDestroy() − This is the cleanup phase just before Angular destroys the directive/component.
 
 ## **Navigating between different routes**
 
@@ -1130,6 +1131,33 @@ While promises handle a single event, observable is a stream that allows passing
 
 - The filter() method returns the matched values in an array from the collection. It will check all values in the collection and return the matched values in an array.<br/>
 - Filter returns an array.
+
+## **Angular Decorators**
+
+Decorators are the features of Typescript and are implemented as functions. The name of the decorator starts with `@` symbol following by brackets and arguments. The decorator provides metadata to angular classes, property, value, method, etc. and decorators are going to be invoked at runtime.
+
+### In Angular, the Decorators are classified into 4 types. They are as follows:
+
+1. Class Decorators: `@Component` and `@NgModule`
+2. Property Decorators: `@Input` and `@Output` (These two decorators are used inside a class)
+3. Method Decorators: `@HostListener` (This decorator is used for methods inside a class like a click, mouse hover, etc.)
+4. Parameter Decorators: `@Inject` (This decorator is used inside class constructor)
+
+### List of decorators available in Angular:
+
+1. @NgModule
+2. @Component
+3. @Injectable
+4. @Directive
+5. @Pipe
+6. @Input
+7. @Output
+8. @HostBinding
+9. @HostListener
+10. @ContentChild
+11. @ContentChildren
+12. @ViewChild
+13. @ViewChildren
 
 ---
 
