@@ -40,6 +40,39 @@ Output:
 Subject only get notified of the events after we subscribe to it. 
 Here the value `1` is send before we subscribe to `mySunject$`, so it is not logged in console.
 
+```typescript
+import { Component } from '@angular/core';
+
+import { Subject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  mySunject$ = new Subject();
+
+  ngOnInit() {
+    this.mySunject$.subscribe((val) => console.log('first subscribe ' + val));
+
+    this.mySunject$.next(1);
+    this.mySunject$.next(2);
+    this.mySunject$.next(3);
+
+    this.mySunject$.subscribe((val) => console.log('second subscribe ' + val));
+    this.mySunject$.next(4);
+  }
+}
+
+Output:
+first subscribe 1
+first subscribe 2
+first subscribe 3
+first subscribe 4
+second subscribe 4
+```
+
 ## BehaviorSubject
 
 A behavior subject is just like a subject except it requires a starting value and holds the most recent value for any new subscribers.
@@ -80,7 +113,82 @@ first subscribe 4
 second subscribe 4
 ```
 
-Refer for [more](http://reactivex.io/documentation/subject.html)
+## ReplaySubject
+
+The replay subject will save all the values and give them to each subscriber even after the replay subject has been completed.
+
+```typescript
+import { Component } from '@angular/core';
+
+import { ReplaySubject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  mySunject$ = new ReplaySubject();
+
+  ngOnInit() {
+    this.mySunject$.subscribe((val) => console.log('first subscribe ' + val));
+
+    this.mySunject$.next(1);
+    this.mySunject$.next(2);
+    this.mySunject$.next(3);
+
+    this.mySunject$.subscribe((val) => console.log('second subscribe ' + val));
+    this.mySunject$.next(4);
+  }
+}
+
+Output:
+first subscribe 1
+first subscribe 2
+first subscribe 3
+second subscribe 1
+second subscribe 2
+second subscribe 3
+first subscribe 4
+second subscribe 4
+```
+
+## AsyncSubject
+
+The AsyncSubject is a variant where only the last value of the Observable execution is sent to its observers, and only when the execution completes.
+
+```typescript
+import { Component } from '@angular/core';
+
+import { AsyncSubject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  mySunject$ = new AsyncSubject();
+
+  ngOnInit() {
+    this.mySunject$.subscribe((val) => console.log('first subscribe ' + val));
+
+    this.mySunject$.next(1);
+    this.mySunject$.next(2);
+    this.mySunject$.next(3);
+
+    this.mySunject$.subscribe((val) => console.log('second subscribe ' + val));
+    this.mySunject$.next(4);
+    this.mySunject$.complete();
+  }
+}
+
+Output:
+first subscribe 4
+second subscribe 4
+```
+
+Refer for [more](https://rxjs.dev/guide/subject)
 
 ## **cloneDeep**
 
