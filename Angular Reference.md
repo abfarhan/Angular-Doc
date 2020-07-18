@@ -190,6 +190,40 @@ second subscribe 4
 
 Refer for [more](https://rxjs.dev/guide/subject)
 
+## **of**
+
+of converts the values into observable value.
+
+```typescript
+import { of } from 'rxjs';
+
+export class AppComponent {
+  screamWarrior;
+
+  ngOnInit() {
+    this.screamWarrior = of('samurai', 'ninja', 'viking', 'soldiers');
+    this.screamWarrior.subscribe((val) => console.log(val));
+  }
+}
+```
+
+## **from**
+
+from converts the array of values into observable value.
+
+```typescript
+import { from } from 'rxjs';
+
+export class AppComponent {
+  screamWarrior;
+
+  ngOnInit() {
+    this.screamWarrior = from(['samurai', 'ninja', 'viking', 'soldiers']);
+    this.screamWarrior.subscribe((val) => console.log(val));
+  }
+}
+```
+
 ## **cloneDeep**
 
 > npm i lodash
@@ -209,7 +243,6 @@ export class MockStickyNotesFacade {
     }
 }
 ```
-of converts the value into observable value.
 
 ## **unsubscribing**
   
