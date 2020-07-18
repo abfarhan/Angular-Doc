@@ -9,6 +9,77 @@
 >
 > AsyncSubject :- the latest value when the stream will close
 
+## Subject
+
+```typescript
+import { Component } from '@angular/core';
+import { Subject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  mySunject$ = new Subject();
+
+  ngOnInit() {
+    this.mySunject$.next(1);
+
+    this.mySunject$.subscribe((val) => console.log(val));
+
+    this.mySunject$.next(2);
+    this.mySunject$.next(3);
+  }
+}
+
+Output:
+2
+3
+```
+Subject only get notified of the events after we subscribe to it. 
+Here the value `1` is send before we subscribe to `mySunject$`, so it is not logged in console.
+
+## BehaviorSubject
+
+A behavior subject is just like a subject except it requires a starting value and holds the most recent value for any new subscribers.
+
+```typescript
+import { Component } from '@angular/core';
+
+import { BehaviorSubject } from 'rxjs';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  mySunject$ = new BehaviorSubject(200);
+
+  ngOnInit() {
+    this.mySunject$.subscribe((val) => console.log('first subscribe ' + val));
+
+    this.mySunject$.next(1);
+    this.mySunject$.next(2);
+    this.mySunject$.next(3);
+
+    this.mySunject$.subscribe((val) => console.log('second subscribe ' + val));
+    
+    this.mySunject$.next(4);
+  }
+}
+
+Output:
+first subscribe 200
+first subscribe 1
+first subscribe 2
+first subscribe 3
+second subscribe 3
+first subscribe 4
+second subscribe 4
+```
+
 Refer for [more](http://reactivex.io/documentation/subject.html)
 
 ## **cloneDeep**
@@ -30,6 +101,7 @@ export class MockStickyNotesFacade {
     }
 }
 ```
+of converts the value into observable value.
 
 ## **unsubscribing**
   
