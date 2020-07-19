@@ -377,3 +377,72 @@ For more click [here](https://angular.io/guide/build#proxying-to-a-backend-serve
 	this.currentPage = val;
  });
 ```
+
+## **mergeMap**
+
+```typescript
+import { Component } from '@angular/core';
+
+import { of, interval } from 'rxjs';
+import { mergeMap, take, map } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  ngOnInit() {
+    const numbers$ = interval(1000).pipe(take(3));
+    const letters$ = of('a', 'b', 'c', 'd');
+
+    letters$
+      .pipe(mergeMap((x) => numbers$.pipe(map((i) => x + i))))
+      .subscribe((val) => console.log(val));
+  }
+}
+
+Output:
+a0
+b0
+c0
+d0
+a1
+b1
+c1
+d1
+a2
+b2
+c2
+d2
+```
+
+## **switchMap**
+
+```typescript
+import { Component } from '@angular/core';
+
+import { of, interval } from 'rxjs';
+import { take, map, switchMap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  ngOnInit() {
+    const numbers$ = interval(1000).pipe(take(3));
+    const letters$ = of('a', 'b', 'c', 'd');
+
+    letters$
+      .pipe(switchMap((x) => numbers$.pipe(map((i) => x + i))))
+      .subscribe((val) => console.log(val));
+  }
+}
+
+Output:
+d0
+d1
+d2
+```
