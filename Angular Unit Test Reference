@@ -1,5 +1,5 @@
 
----Mock for BehaviorSubject
+---------- Mock for BehaviorSubject
 export class MockClass {
    public mockVariable = new BehaviorSubject<mockType>(mockFunction());
 }
@@ -7,4 +7,39 @@ function mockFunction(): mockType {
     // some action
     return value;
 }
+
+
+---------- To test a method that contains set timeout
+hideToast() {
+    setTimeout( () => {
+      this.showToast = false;
+    }, 5000);
+  }
+
+it('should hide toast', () => {
+  component.showToast = true; // This value should change after timeout
+  jasmine.clock().install();  // First install the clock
+  component.hideToast();      // Call the component method that turns the showToast value as false
+  jasmine.clock().tick(5000); // waits till 5000 milliseconds
+  expect(component.showToast).toBeFalsy();  // Then executes this
+  jasmine.clock().uninstall(); // uninstall clock when done
+});
+
+
+---------- This will give focus of undefined error
+ const elem = document.getElementById(this.dynamicChargeSchedCellIndex);
+    elem.focus();
+
+so then use
+const dummyElement = document.createElement('td');  // td or div or input
+      document.getElementById = jasmine.createSpy('HTML Element').and.returnValue(dummyElement);
+      
+      
+--------- To test nativeElement.focus()
+component.chargeInputField = {
+        nativeElement: jasmine.createSpyObj('nativeElement', ['focus'])
+        }
+component.focusInputField('chargeField');
+expect(component.chargeInputField.nativeElement.focus).toHaveBeenCalled();
+
 
