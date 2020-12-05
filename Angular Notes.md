@@ -501,6 +501,8 @@ There are three kinds of directives in Angular:
 -- structural directives
 Structural directives—change the DOM layout by adding and removing DOM elements.
 
+Learn more about the directives **[here.](https://www.edureka.co/blog/angular-directive/)**
+
 ### **\*ngFor**
 
 A structural directive that renders a template for each item in a collection.
